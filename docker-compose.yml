@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: trivial-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: trivial
+
+  # Descomentar si quieres ejecutar la app en Docker también
+  # app:
+  #   build: .
+  #   container_name: trivial-app
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - mongodb
+  #   environment:
+  #     MONGODB_URI: mongodb://mongodb:27017/trivial
+  #     JWT_SECRET: tu_clave_secreta_super_segura
+  #     JWT_EXPIRES_IN: 1d
+  #     PORT: 3000
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+
+volumes:
+  mongodb_data:
